@@ -33,20 +33,21 @@ for i_adap = 1:N_adapting
     mse_uni(i_adap) = 1/(i_adap*N_measurement*qfi_uni);
 end
 
-% subplot(5,1,1);
+
 figure(1)
+subplot(3,1,1);
 p1 = plot(0:N_adapting,theta_adap(:,1),'-.o',0:N_adapting,theta_adap(:,2),'-.d', ...,
     0:N_adapting,theta_adap(:,3),'-.p',0:N_adapting,theta_adap(:,4),'-.^', ...,
     [0,N_adapting],[theta_0,theta_0],'--','MarkerSize',10);
 xlim([0,N_adapting])
-xticks(0:1:N_adapting)
+xticks(1:N_adapting-1)
 ylim([0,pi/2])
 yticks([0 pi/4 pi/2])
 yticklabels({'0','\pi/4','\pi/2'});
-l2 = legend('$\hat{\theta}_0=\pi/8$ (Correlated)','$\hat{\theta}_0=\pi/2$ (Correlated)', ...,
-    '$\hat{\theta}_0=\pi/8$ (Unitary)','$\hat{\theta}_0=\pi/2$ (Unitary)');
+l2 = legend('$\hat{\theta}_0=0$ (Correlated)','$\hat{\theta}_0=\pi/2$ (Correlated)', ...,
+    '$\hat{\theta}_0=0$ (Unitary)','$\hat{\theta}_0=\pi/2$ (Unitary)');
 set(gca,'fontsize',18);
-xlabel('Adapting steps','fontweight','bold','FontSize',22);
+xlabel('Adapting steps','FontSize',22);
 l3 = ylabel('$\hat{\theta}$','fontweight','bold','FontSize',22);
 title('(a)','FontSize',18);
 set(p1,'LineWidth',1.2);
@@ -56,21 +57,19 @@ set(l3,'Interpreter','Latex');
 
 
 
-%subplot(2,1,2);
-figure(2)
-adaping = [1 2 3 4 5 6 7 8 9 10];
+subplot(3,1,[2 3]);
 p2 = plot(1:N_adapting,mse_adap(:,1),'-.o',1:N_adapting,mse_adap(:,2),'-.d', ...,
     1:N_adapting,mse_adap(:,3),'-.p',1:N_adapting,mse_adap(:,4),'-.^','MarkerSize',10);
-xlim([1,N_adapting])
-xticks(1:1:N_adapting)
-%ylim([0.09 3])
-%yticks([0 1 2 3])
-%yticklabels({'0','1','2','3'})
-l4 = legend('$\hat{\theta}_0=\pi/8$ (Correlated)','$\hat{\theta}_0=\pi/2$ (Correlated)', ...,
-    '$\hat{\theta}_0=\pi/8$ (Unitary)','$\hat{\theta}_0=\pi/2$ (Unitary)');
+xlim([0,N_adapting])
+xticks(0:1:N_adapting)
+ylim([0.007 0.3])
+yticks([0.01 0.02 0.05 0.1 0.2])
+yticklabels({'0.01','0.02','0.05','0.1','0.2'})
+l4 = legend('$\hat{\theta}_0=0$ (Correlated)','$\hat{\theta}_0=\pi/2$ (Correlated)', ...,
+    '$\hat{\theta}_0=0$ (Unitary)','$\hat{\theta}_0=\pi/2$ (Unitary)');
 set(gca,'fontsize',18,'yscale','log')
-xlabel('Adapting steps','fontweight','bold','FontSize',22);
-l5 = ylabel('${MSE}_{\theta}$','fontweight','bold','FontSize',22);
+xlabel('Adapting steps','FontSize',20);
+l5 = ylabel('$E[(\hat{\theta}-\theta_0)^2]$','fontweight','bold','FontSize',22);
 title('(b)','FontSize',18);
 set(p2,'LineWidth',1.2);
 set(l4,'Interpreter','Latex','FontSize',18);
